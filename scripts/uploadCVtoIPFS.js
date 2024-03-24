@@ -35,6 +35,7 @@ async function uploadToIPFS(filePath = './uploadCVtoIPFS.jpg') {
     };
     try { //try-catch block to log errors 
         const response = await axios(config); // get the answser of Pinata (IPFS hash) following our POST request
+        console.log("Data stored in IPFS")
         return response.data.IpfsHash; // Returns the IPFS hash of the uploaded file as a string
     } catch (error) {
         console.error("Failed to upload to IPFS:", error);
@@ -43,6 +44,6 @@ async function uploadToIPFS(filePath = './uploadCVtoIPFS.jpg') {
 
 exports.uploadToIPFS = uploadToIPFS; //export it as uploadToIPFS to use it in the run.js
 
-// upload a CV file to IPFS command
+// upload a CV file to IPFS command (test purposes)
 // uploadToIPFS('./uploadToIPFS.jpg').then(ipfsHash => console.log("CV uploaded to IPFS with hash:", ipfsHash));
 
