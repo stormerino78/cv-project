@@ -13,17 +13,6 @@ async function uploadToIPFS(filePath = './uploadCVtoIPFS.jpg') {
     const formData = new FormData();
     formData.append("file", stream); //integrate the CV datas in formData variable
 
-    /* Optional: Add metadata and options if needed
-        const pinataMetadata = JSON.stringify({
-            name: 'My CV File', // Optionally provide a name for the file
-        });
-    formData.append('pinataMetadata', pinataMetadata);
-    const pinataOptions = JSON.stringify({
-        cidVersion: 0, // Optionally specify CID version
-    });
-    formData.append('pinataOptions', pinataOptions);
-    */
-
     const config = { // Configure the request for Pinata
         method: 'post',
         url: url,

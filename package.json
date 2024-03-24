@@ -23,6 +23,7 @@
   "dependencies": {
     "alchemy-sdk": "^3.2.0",
     "axios": "^1.6.8",
+    "chokidar": "^3.6.0",
     "dotenv": "^16.4.5",
     "form-data": "^4.0.0",
     "web3": "^4.6.0"
