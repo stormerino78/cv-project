@@ -1,0 +1,209 @@
+{
+    "address": "Your_Contract_Address",
+    "abi": [
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "job",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "email",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "bio",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "workExperience",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "education",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "skills",
+              "type": "string"
+            }
+          ],
+          "name": "CVUpdated",
+          "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "name": "CVs",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "job",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "email",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "bio",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "workExperience",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "education",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "skills",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_jobSeeker",
+              "type": "address"
+            }
+          ],
+          "name": "getCV",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "string",
+                  "name": "name",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "job",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "email",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "bio",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "workExperience",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "education",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "skills",
+                  "type": "string"
+                }
+              ],
+              "internalType": "struct digitalCV.CV",
+              "name": "",
+              "type": "tuple"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "_name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "_job",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "_email",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "_bio",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "_workExperience",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "_education",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "_skills",
+              "type": "string"
+            }
+          ],
+          "name": "updateCV",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ]
+}
+  

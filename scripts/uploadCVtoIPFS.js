@@ -1,0 +1,46 @@
+//requirements
+require('dotenv').config({ path: '../.env' }); // adjust the path to get the variable from the .env file in the parent directory
+const axios = require('axios');
+const FormData = require('form-data');
+const fs = require('fs');
+const {PINATA_API_KEY} = process.env; //get INFURA api key from .env file
+
+async function uploadToIPFS(filePath) {
+    const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`; // Pinata endpoint for file upload
+    // Create a stream from the file to be uploaded
+    const stream = fs.createReadStream(filePath);
+    //create a new variable formData which will take the CV datas 
+    const formData = new FormData();
+    formData.append("file", stream); //integrate the CV datas in formData variable
+
+    /* Optional: Add metadata and options if needed
+        const pinataMetadata = JSON.stringify({
+            name: 'My CV File', // Optionally provide a name for the file
+        });
+    formData.append('pinataMetadata', pinataMetadata);
+    const pinataOptions = JSON.stringify({
+        cidVersion: 0, // Optionally specify CID version
+    });
+    formData.append('pinataOptions', pinataOptions);
+    */
+
+    const config = { // Configure the request for Pinata
+        method: 'post',
+        url: url,
+        headers: {
+            'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+            'Authorization': `Bearer ${PINATA_API_KEY}` // Use the Pinata API key for authorization
+        },
+        data: formData
+    };
+    try { //try-catch block to log errors 
+        const response = await axios(config); // get the answser of Pinata (IPFS hash) following our POST request
+        return response.data.IpfsHash; // Returns the IPFS hash of the uploaded file
+    } catch (error) {
+        console.error("Failed to upload to IPFS:", error);
+    }
+}
+
+// upload a CV file to IPFS command
+uploadToIPFS('./uploadToIPFS.jpg').then(ipfsHash => console.log("CV uploaded to IPFS with hash:", ipfsHash));
+
