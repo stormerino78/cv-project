@@ -2,30 +2,37 @@
 pragma solidity ^0.8.24;
 
 contract digitalCV {
+    // Mapping from user address to their IPFS hash
+    mapping(address => string[]) private cvHashes;
 
-    address public owner;
-    
-    // Mapping the owner address to their CV hash
-    mapping(address => string) public cvHashes;
+    // Event to emit when a CV hash is updated
+    event CVHashUpdated(address indexed user, uint256 hashIndex, string newHash);
 
-    constructor() {
-        owner = msg.sender; // Set the contract deployer as the owner
+    // Function to update a specific CV hash or add a new one
+    function updateCVHash(uint256 hashIndex, string memory newHash) public {
+        // If the specified index is exactly equal to the length of the user's hash array,
+        // it means we are adding a new hash.
+        require(hashIndex <= cvHashes[msg.sender].length, "Index out of bounds.");
+
+        if (hashIndex == cvHashes[msg.sender].length) {
+            // Add a new hash
+            cvHashes[msg.sender].push(newHash);
+        } else {
+            // Update an existing hash
+            cvHashes[msg.sender][hashIndex] = newHash;
+        }
+
+        emit CVHashUpdated(msg.sender, hashIndex, newHash);
     }
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Only the owner can update CV hashes.");
-        _;
+    // Function to retrieve all CV hashes for a user
+    function getCVHashes(address user) public view returns (string[] memory) {
+        return cvHashes[user];
     }
 
-    // Function to update the caller's CV hash
-    function updateCVHash(string memory _cvIPFSHash) public onlyOwner {
-        //we update only if the hash is different than the one stored
-        require(keccak256(abi.encodePacked(cvHashes[msg.sender])) != keccak256(abi.encodePacked(_cvIPFSHash)), "New CV hash must be different.");
-        cvHashes[msg.sender] = _cvIPFSHash;
-    }
-
-    // Function to retrieve a CV hash by owner address
-    function getCVHash(address _jobSeeker) public view returns (string memory) {
-        return cvHashes[_jobSeeker];
+    // Optional: Function to retrieve a specific CV hash by index
+    function getCVHash(address user, uint256 hashIndex) public view returns (string memory) {
+        require(hashIndex < cvHashes[user].length, "Index out of bounds.");
+        return cvHashes[user][hashIndex];
     }
 }

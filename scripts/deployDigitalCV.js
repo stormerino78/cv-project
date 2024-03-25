@@ -1,7 +1,7 @@
 // Import ethers from Hardhat package
 const { ethers } = require("hardhat");
 
-async function deployDigitalCV(ipfsHash = '00000000000000000000') {
+async function deployDigitalCV(hashIndex, ipfsHash = '00000000000000000000') {
 
     const [deployer] = await ethers.getSigners();
     console.log("Deploying contracts with the account:", deployer.address);
@@ -13,8 +13,8 @@ async function deployDigitalCV(ipfsHash = '00000000000000000000') {
     const deployedDigitalCV = await digitalCV.deploy();
     console.log("Contract successfully deployed to ",deployedDigitalCV.target);
     //Update the smart contract with the cv data
-    console.log("Updating CV hash in the contract...");
-    const updateTx = await deployedDigitalCV.updateCVHash(ipfsHash);
+    console.log("Uploading CV hash in the contract...");
+    const updateTx = await deployedDigitalCV.updateCVHash(hashIndex, ipfsHash);
     await updateTx.wait(); // Wait for the transaction to be mined
 
     return deployedDigitalCV.target;

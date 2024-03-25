@@ -8,9 +8,10 @@ const artifact = JSON.parse(fs.readFileSync(artifactPath, 'utf8'));
 // Extract the ABI from the artifact
 const contractABI = artifact.abi;
 
-async function updateSmartContract(contractAddress, ipfsHash) {
+async function updateSmartContract(contractAddress, ipfsHash, hashIndex) {
+  const [signer] = await ethers.getSigners(); // get the person who will execute the transaction (here the private key referenced in the hardhat environment)
   const contract = new ethers.Contract(contractAddress, contractABI, signer); // `signer` should be connected to your wallet
-  const tx = await contract.updateCVHash(ipfsHash);
+  const tx = await contract.updateCVHash(hashIndex, ipfsHash); //hashIndex correspond to the CV the user wants to modify (if he has several)
   await tx.wait(); // Wait for the transaction to be mined
   console.log(`The hash in smart contract ${contractAddress} has been updated`);
 }
