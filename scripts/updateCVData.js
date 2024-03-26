@@ -1,5 +1,5 @@
-const {uploadToIPFS} = require('./scripts/uploadCVtoIPFS.js'); //import uploadToIPFS method
-const {updateSmartContract} = require('./scripts/UpdateSmartContract.js'); // import updateSmartContract method
+const {uploadToIPFS} = require('./uploadCVtoIPFS.js'); //import uploadToIPFS method
+const {updateSmartContract} = require('./UpdateSmartContract.js'); // import updateSmartContract method
 
 //function that will be called when the user updated its CV datas to update the IPFS and smart-contract
 async function updateCVData(filePath, contractAddress, versionCV = 0) {
