@@ -1,7 +1,7 @@
 // Import ethers from Hardhat package
 const { ethers } = require("hardhat");
 
-async function deployDigitalCV(hashIndex, ipfsHash = '00000000000000000000') {
+async function deployDigitalCV(hashIndex, ipfsHash) {
 
     const [deployer] = await ethers.getSigners();
     console.log("Deploying contracts with the account:", deployer.address);

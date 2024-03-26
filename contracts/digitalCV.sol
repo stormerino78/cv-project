@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.22;
 
 contract digitalCV {
     // Mapping from user address to their IPFS hash
     mapping(address => string[]) private cvHashes;
 
     // Event to emit when a CV hash is updated
-    event CVHashUpdated(address indexed user, uint256 hashIndex, string newHash);
+    //event CVHashUpdated(address indexed user, uint256 hashIndex, string newHash);
+
 
     // Function to update a specific CV hash or add a new one
     function updateCVHash(uint256 hashIndex, string memory newHash) public {
@@ -22,17 +23,16 @@ contract digitalCV {
             cvHashes[msg.sender][hashIndex] = newHash;
         }
 
-        emit CVHashUpdated(msg.sender, hashIndex, newHash);
+        //emit CVHashUpdated(msg.sender, hashIndex, newHash);
     }
 
     // Function to retrieve all CV hashes for a user
     function getCVHashes(address user) public view returns (string[] memory) {
         return cvHashes[user];
     }
-
-    // Optional: Function to retrieve a specific CV hash by index
-    function getCVHash(address user, uint256 hashIndex) public view returns (string memory) {
-        require(hashIndex < cvHashes[user].length, "Index out of bounds.");
+    
+    /*function getCVHash(address user, uint256 hashIndex) public view returns (string memory) {
+        require(hashIndex >= cvHashes[user].length, "Index out of bounds");
         return cvHashes[user][hashIndex];
-    }
+    }*/
 }
