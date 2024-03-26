@@ -20,4 +20,4 @@ async function retrieveIPFSHash(contractAddress = "0x0648225A73b2130A37e3f4684D8
 exports.retrieveIPFSHash = retrieveIPFSHash; //export it as uploadToIPFS to use it in the run.js
 
 //testing purposes
-retrieveIPFSHash();
+//retrieveIPFSHash();

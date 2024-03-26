@@ -16,3 +16,6 @@ async function updateCVData(filePath, contractAddress, versionCV = 0) {
     }
 }
 exports.updateCVData = updateCVData; //export it as uploadToIPFS to use it in the run.js
+
+//testing purposes
+//updateCVData();

@@ -17,3 +17,6 @@ async function updateSmartContract(contractAddress, ipfsHash, hashIndex) {
 }
 
 exports.updateSmartContract = updateSmartContract;
+
+//testing purposes
+//updateSmartContract();
