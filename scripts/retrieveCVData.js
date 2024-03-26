@@ -15,4 +15,6 @@ async function retrieveCVData() {
 }
 
 exports.retrieveCVData = retrieveCVData; //export it as uploadToIPFS to use it in the run.js
-retrieveCVData();
+
+//testing purposes
+//retrieveCVData();

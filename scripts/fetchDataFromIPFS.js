@@ -17,4 +17,4 @@ async function fetchDataFromIPFS(ipfsHash = "QmZdopXBYBFhoCnkxoBvGV4px1hbrRYTqBH
 exports.fetchDataFromIPFS = fetchDataFromIPFS; //export it as uploadToIPFS to use it in the run.js
 
 //testing purposes
-fetchDataFromIPFS();
+//fetchDataFromIPFS();

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CV Submission</title>
+</head>
+<body>
+    <h2>Submit Your CV</h2>
+    <form id="cvForm">
+        <input type="text" id="name" placeholder="Your Name" required /><br>
+        <input type="email" id="email" placeholder="Your Email" required /><br>
+        <input type="text" id="job" placeholder="Your position" required /><br>
+        <textarea id="bio" placeholder="Short Bio"></textarea><br>
+        <button type="button" onclick="submitCV()">Submit</button>
+        <button onclick="connectMetaMask()">Connect MetaMask</button>
+    </form>
+
+    <div id="status"></div>
+
+    <script src="submitCV.js"></script>
+    <script src="connectMetamask.js"></script>
+</body>
+</html>
