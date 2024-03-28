@@ -1,22 +1,19 @@
-import { ethers } from "ethers";
-
 async function connectMetamask() {
-    if (window.ethereum) {
-        try {
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            await provider.send({ method: 'eth_requestAccounts' });
+    try {
+        if (window.ethereum == null) {
+            // If MetaMask is not installed, we use the default provider(INFURA), no private keys installed so read-only access
+            console.log("MetaMask not installed; using read-only defaults")
+            provider = ethers.getDefaultProvider()
+        } else {
+            // Connect to the MetaMask EIP-1193 object which allows Ethers access to make all read-only requests through MetaMask.
+            const provider = new ethers.BrowserProvider(window.ethereum)
+            // Request access to write operations, which will be performed by the private key of the user
             const signer = await provider.getSigner();
             console.log('Connected to', signer);
-            /*
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            console.log('Connected to', accounts);
-            return accounts[0]; Return the connected account address */
-        } catch (error) {
-            console.error('Error connecting to MetaMask:', error);
-            return null; // Handle errors or absence of MetaMask
+            return signer;
         }
-    } else {
-        console.log('MetaMask is not installed!');
-        return null;
-    }
+    } catch (error) {
+        console.error('Error connecting to MetaMask:', error);
+        return null; // Handle errors or absence of MetaMask
+    }   
 }

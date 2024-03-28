@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.11.1/ethers.umd.min.js" type="application/javascript"></script>
+    <script src="connectMetamask.js"></script>
+    <script src="API_methods.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="#">
     <title>CV Submission</title>
-    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
 </head>
 </head>
 <body>
@@ -19,9 +20,6 @@
         <button type="button" onclick="submitCVData()">Submit</button>
         <button onclick="connectMetamask()">Connect MetaMask</button>
     </form>
-
     <div id="status"></div>
-    <script src="connectMetamask.js"></script>
-    <script src="API_methods.js"></script>
 </body>
 </html>
