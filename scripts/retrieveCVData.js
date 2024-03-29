@@ -1,5 +1,5 @@
-const {retrieveIPFSHash} = require('./retrieveIPFSHash.js'); //import retrieveIPFSHash method
-const {fetchDataFromIPFS} = require('./fetchDataFromIPFS.js'); //import fetchDataFromIPFS method
+const { retrieveIPFSHash }  = require ('./retrieveIPFSHash.js'); //import retrieveIPFSHash method
+const { fetchDataFromIPFS } = require ('./fetchDataFromIPFS.js'); //import fetchDataFromIPFS method
 
 // Set your contract address and user address here
 const contractAddress = "0x0648225A73b2130A37e3f4684D868783537dF9f5";

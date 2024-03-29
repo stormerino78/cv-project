@@ -1,24 +1,33 @@
 //requirements
-require('dotenv').config({ path: '../.env' }); // adjust the path to get the variable from the .env file in the parent directory
+require('dotenv').config({ path: '.env' }); // adjust the path to get the variable from the .env file in the parent directory (.env or ../.env)
 const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 const {PINATA_API_KEY} = process.env; //get INFURA api key from .env file
 
-async function uploadToIPFS(filePath = './uploadCVtoIPFS.jpg') {
+async function uploadToIPFS(data) {
+    /* data form:
+    {
+    name: 'hello',
+    email: 'hello.hi@hello.fr',
+    job: 'zaczc',
+    bio: 'zac'
+    }*/
+
     const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`; // Pinata endpoint for file upload
-    // Create a stream from the file to be uploaded
-    const stream = fs.createReadStream(filePath);
     //create a new variable formData which will take the CV datas 
     const formData = new FormData();
-    formData.append("file", stream); //integrate the CV datas in formData variable
+    //Add our data in the formData variable
+    for (const [key, value] of Object.entries(data)) {
+        formData.append(key, value);
+    }
 
     const config = { // Configure the request for Pinata
         method: 'post',
         url: url,
         headers: {
-            'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
-            'Authorization': `Bearer ${PINATA_API_KEY}` // Use the Pinata API key for authorization
+            'Authorization': `Bearer ${PINATA_API_KEY}`, // Use the Pinata API key for authorization
+            ...formData.getHeaders() // important to include the form-data boundary
         },
         data: formData
     };

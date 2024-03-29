@@ -1,5 +1,49 @@
-const { uploadToIPFS } = require('../scripts/uploadCVtoIPFS.js');
-const { connectMetaMask } = require('./connectMetamask.js');
+//const { uploadToIPFS } = require('../scripts/uploadCVtoIPFS.js');
+//const { connectMetaMask } = require('./connectMetamask.js');
+
+async function checkMetamask(){
+    const signer = await connectMetamask(); // Ensure we're connected to MetaMask
+    if (!signer) {
+        console.error('Error connecting to MetaMask:'); // Stop if we couldn't connect to MetaMask
+        return null; 
+    }
+    return signer;
+}
+
+async function submitCV() {
+    const signer = await checkMetamask();
+    const cvData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        job: document.getElementById('job').value,
+        bio: document.getElementById('bio').value,
+    };
+    try {
+        // Assuming you have an endpoint set up to accept CV data and upload it to IPFS
+        const response = await fetch('http://localhost:3000/updateCV', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(cvData),
+        });
+        const result = await response.json();
+        console.log('post method is', result)
+        if (result.success) {
+            console.log("CV uploaded to IPFS with hash:", result.ipfsHash);
+        }else{
+            console.error('Upload failed:', result.message);
+        }
+        // Display success message or handle the IPFS hash as needed
+    } catch (error) {
+        console.error('Failed to submit CV:', error);
+    }
+}
+
+
+
+/* functions with API
+
 
 async function postCVData() {
     userAddress = checkMetamask();
@@ -41,25 +85,6 @@ async function postCVData() {
     //uploadToIPFS(file) //sending the data to the IPFS
 }
 
-
-async function submitCVData(cvData) {
-    // This assumes you have ethers.js included in your project
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(contractAddress, contractABI, signer);
-
-    try {
-        // Assuming cvData includes the necessary information for the smart contract method
-        // and updateCVData is the contract method to be called
-        const txResponse = await contract.updateCVData(...cvData);
-        await txResponse.wait();
-        console.log('CV data updated successfully:', txResponse);
-    } catch (error) {
-        console.error('Failed to update CV data:', error);
-    }
-}
-
-
 async function getCVData() {
     userAddress = checkMetamask();
     fetch(`/retrieveCV/${userAddress[0]}`)
@@ -74,12 +99,4 @@ async function getCVData() {
         })
         .catch((error) => console.error('Error fetching CV data:', error));
 }
-
-async function checkMetamask(){
-    const signer = await connectMetaMask(); // Ensure we're connected to MetaMask
-    if (!signer) {
-        console.error('Error connecting to MetaMask:'); // Stop if we couldn't connect to MetaMask
-        return null; 
-    }
-    return signer;
-}
+*/

@@ -3,8 +3,12 @@ const {updateCVData} = require('./scripts/updateCVData.js'); //import updateCVDa
 const {retrieveCVData} = require('./scripts/retrieveCVData.js'); //import fetchDataFromIPFS method
 
 const app = express();
+const cors = require('cors'); // Import CORS package
 const port = 3000;
 
+// only allow requests from the frontend application in the CORS policy
+app.use(cors({ origin: 'http://localhost:8080' })); 
+// api setup
 app.use(express.json());
 
 // Endpoint to retrieve CV data
@@ -24,6 +28,7 @@ app.post('/updateCV', async (req, res) => {
     const cvData = req.body; // Assuming cvData is sent as JSON in the request body
     const contractAddress = "0x0648225A73b2130A37e3f4684D868783537dF9f5";
     try {
+        console.log('contractAddress', contractAddress);
         const updateResult = await updateCVData(cvData, contractAddress);
         res.json({ success: true, updateResult });
     } catch (error) {
