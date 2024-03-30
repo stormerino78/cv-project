@@ -1,5 +1,5 @@
 const express = require('express');
-const {updateCVData} = require('./scripts/updateCVData.js'); //import updateCVData method
+const {uploadToIPFS} = require('./scripts/uploadCVtoIPFS.js'); //import updateCVData method
 const {retrieveCVData} = require('./scripts/retrieveCVData.js'); //import fetchDataFromIPFS method
 
 const app = express();
@@ -29,8 +29,8 @@ app.post('/updateCV', async (req, res) => {
     const contractAddress = "0x0648225A73b2130A37e3f4684D868783537dF9f5";
     try {
         console.log('contractAddress', contractAddress);
-        const updateResult = await updateCVData(cvData, contractAddress);
-        res.json({ success: true, updateResult });
+        const IpfsHash = await uploadToIPFS(cvData, contractAddress);
+        res.json({ success: true, ipfsHash : IpfsHash });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }

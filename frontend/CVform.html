@@ -2,10 +2,10 @@
 <html>
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.11.1/ethers.umd.min.js" type="application/javascript"></script>
-    <script src="../scripts/UpdateSmartContract.js"></script>
     <script src="connectMetamask.js"></script>
-    <script src="mainFrontend.js"></script>
     <script src="API_methods.js"></script>
+    <script src="updateSmartContract.js"></script>
+    <script src="updateCVData.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,7 +19,8 @@
         <input type="email" id="email" placeholder="Your Email" required /><br>
         <input type="text" id="job" placeholder="Your position" required /><br>
         <textarea id="bio" placeholder="Short Bio"></textarea><br>
-        <button type="button" onclick="submitCV()">Submit</button>
+        <button type="button" onclick="updateCVData()">Submit</button>
+        <button type="button" onclick="getCVData()">GET data</button>
         <button onclick="main()">Connect MetaMask</button>
     </form>
     <div id="status"></div>

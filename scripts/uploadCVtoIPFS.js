@@ -1,11 +1,9 @@
 //requirements
 require('dotenv').config({ path: '.env' }); // adjust the path to get the variable from the .env file in the parent directory (.env or ../.env)
-const axios = require('axios');
 const {PINATA_API_KEY} = process.env; //get Pinata api key from .env file
 
 async function uploadToIPFS(data) {
-    /* data form:
-    {name: 'hello', email: 'hello.hi@hello.fr', job: 'zaczc', bio: 'zac'}*/ 
+    //data form: {name: 'hello', email: 'hello.hi@hello.fr', job: 'zaczc', bio: 'zac'}
     const config = {
         method: 'POST',
         headers: {
@@ -18,7 +16,6 @@ async function uploadToIPFS(data) {
         const response = await fetch('https://api.pinata.cloud/pinning/pinJSONToIPFS', config);
         const responseData = await response.json();
         if(response.ok) {
-            console.log(responseData.IpfsHash);
             return responseData.IpfsHash; //Returns the hash of the data stored in the IPFS
         }else {
             //throw an error
@@ -30,7 +27,7 @@ async function uploadToIPFS(data) {
     }
 }
 
-//export it as uploadToIPFS to use it in the run.js
+//export it as uploadToIPFS to be used by other scripts
 exports.uploadToIPFS = uploadToIPFS;
 
 

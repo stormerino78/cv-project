@@ -12,7 +12,7 @@ async function connectMetamask() {
             const signer = await provider.getSigner();
             const address = await signer.getAddress();
             console.log('Connected to', address);
-            return signer;
+            return {signer, address};
         }
     } catch (error) {
         console.error('Error connecting to MetaMask:', error);
