@@ -20,4 +20,10 @@ async function connectMetamask() {
     }   
 }
 
+async function loadABI() { // Get the ABI of the contract
+    const response = await fetch('http://localhost:8080/artifacts/contracts/digitalCV.sol/digitalCV.json'); // path to the artifact file of the contract
+    const artifact = await response.json();
+    return artifact.abi;
+  }
+  
 //exports.connectMetamask = connectMetamask;

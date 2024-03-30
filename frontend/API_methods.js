@@ -1,5 +1,4 @@
-//const { uploadToIPFS } = require('../scripts/uploadCVtoIPFS.js');
-//const { connectMetaMask } = require('./connectMetamask.js');
+const contractAddress ="0x0648225A73b2130A37e3f4684D868783537dF9f5";
 
 async function submitCV() { //POST method
     const cvData = {
@@ -8,6 +7,7 @@ async function submitCV() { //POST method
         job: document.getElementById('job').value,
         bio: document.getElementById('bio').value,
     };
+    const index = document.getElementById('index').value;
     try {
         // Assuming you have an endpoint set up to accept CV data and upload it to IPFS
         const response = await fetch('http://localhost:3000/updateCV', {
@@ -18,7 +18,6 @@ async function submitCV() { //POST method
             body: JSON.stringify(cvData),
         });
         const result = await response.json();
-        console.log('post method is', result)
         if (result.success) {
             return result.ipfsHash;
         }else{
@@ -31,15 +30,22 @@ async function submitCV() { //POST method
 }
 
 async function getCVData() {
-    fetch(`/retrieveCV/${userAddress[0]}`)
-        .then((response) => response.json())
-        .then((data) => {
-            if(data.success) {
-                console.log(data.cvData);
-                // Process and display CV data as needed
-            } else {
-                console.error(data.message);
-            }
-        })
-        .catch((error) => console.error('Error fetching CV data:', error));
+    const contractABI = await loadABI();
+    const {signer, address} = await connectMetamask(); // Get the user signer object
+    const contract = new ethers.Contract(contractAddress, contractABI, signer);
+    try {
+        const ipfsHashes = await contract.getCVHashes(address);
+        console.log("ipfsHashes:",JSON.stringify({ipfsHashes}));
+        //{"ipfsHashes":["QmbjJSe58sLC19gXyi3U8wrbLwF4XTG8pWx2tWsi9MXn7E","QmZdopXBYBFhoCnkxoBvGV4px1hbrRYTqBHkT76yaGNXoM"]}
+        const response = await fetch(`http://localhost:3000/fetchDataFromIPFS`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ipfsHashes}),
+        });
+        const data = await response.json();
+        console.log("Data from IPFS:", data);
+        // Handle displaying the data in your frontend here
+    } catch (error) {
+        console.error('Failed to fetch data:', error);
+    }
 }
