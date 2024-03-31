@@ -7,7 +7,6 @@ async function submitCV() { //POST method
         job: document.getElementById('job').value,
         bio: document.getElementById('bio').value,
     };
-    const index = document.getElementById('index').value;
     try {
         // Assuming you have an endpoint set up to accept CV data and upload it to IPFS
         const response = await fetch('http://localhost:3000/updateCV', {
@@ -35,7 +34,7 @@ async function getCVData() {
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
     try {
         const ipfsHashes = await contract.getCVHashes(address);
-        console.log("ipfsHashes:",JSON.stringify({ipfsHashes}));
+        console.log(JSON.stringify({ipfsHashes}));
         //{"ipfsHashes":["QmbjJSe58sLC19gXyi3U8wrbLwF4XTG8pWx2tWsi9MXn7E","QmZdopXBYBFhoCnkxoBvGV4px1hbrRYTqBHkT76yaGNXoM"]}
         const response = await fetch(`http://localhost:3000/fetchDataFromIPFS`, {
             method: 'POST',
