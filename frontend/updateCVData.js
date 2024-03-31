@@ -4,7 +4,13 @@ async function updateCVData() {
         index = document.getElementById('index').value;
         index = index-1; //index for machine starts at 0 and not at 1
         console.log("CV version:", index);
-        const ipfsHash = await submitCV();
+        const cvData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            job: document.getElementById('job').value,
+            bio: document.getElementById('bio').value,
+        };
+        const ipfsHash = await submitCV(cvData);
         console.log(`CV data uploaded to IPFS with hash: ${ipfsHash}`);
         // Update the IPFS hash in the smart contract
         const contractAddress = "0x0648225A73b2130A37e3f4684D868783537dF9f5"; // temporary

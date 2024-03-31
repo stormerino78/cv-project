@@ -1,12 +1,6 @@
 const contractAddress ="0x0648225A73b2130A37e3f4684D868783537dF9f5";
 
-async function submitCV() { //POST method
-    const cvData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        job: document.getElementById('job').value,
-        bio: document.getElementById('bio').value,
-    };
+async function submitCV(cvData) { //POST method
     try {
         // Assuming you have an endpoint set up to accept CV data and upload it to IPFS
         const response = await fetch('http://localhost:3000/updateCV', {
